@@ -1,0 +1,6 @@
+<div class="div" *ngFor="let task of taskList$ | async">
+  {{task.name}}<br>
+  {{task.desc}}<br>
+  <div *ngFor="let member of task.teamMembers">{{member}}</div>
+  {{task.active}}<br>
+</div>
