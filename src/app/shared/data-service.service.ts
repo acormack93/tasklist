@@ -45,28 +45,7 @@ export class DataServiceService {
       desc: 'Task 1 Desc',
       teamMembers: [1, 2, 3, 4], // id of team memeber
       active: true,
-    },
-    {
-      id: 2,
-      name: 'Task 2',
-      desc: 'Task 1 Desc',
-      teamMembers: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-      active: false,
-    },
-    {
-      id: 3,
-      name: 'Task 3',
-      desc: 'Task 3 Desc',
-      teamMembers: [1],
-      active: true,
-    },
-    {
-      id: 4,
-      name: 'Task 4',
-      desc: 'Task 4 Desc',
-      teamMembers: [1],
-      active: true,
-    },
+    }
   ];
   taskList: Task[];
 
@@ -146,7 +125,7 @@ export class DataServiceService {
     this.taskList = this.taskList.map(t => {
       return {
         ...t,
-        active: (t.id === task.id) ? true : t.active
+        active: (t.id === task.id) ? false : t.active
       };
     });
   }
