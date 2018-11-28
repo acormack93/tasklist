@@ -1,12 +1,12 @@
-# PhotoLib
+# TaskLib
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.1.3.
 
 ## General ToDos
 
-* Add server side filtering
-* Refactor SCSS -> SASS
-* Create custom theme
+* Move all task storage in Redux Store
+* Improve styling on secondary pages
+* General UI improvements, card shadnig for active and inactive cards
 
 
 ## Development server

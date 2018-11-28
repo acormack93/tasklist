@@ -1,0 +1,11 @@
+
+<div class="new-task__header">
+  Add a new task
+</div>
+<mat-form-field>
+    <input matInput placeholder="Task Name"  [(ngModel)]="newTaskName">
+  </mat-form-field><br>
+<mat-form-field>
+    <input matInput placeholder="Task Desc"  [(ngModel)]="newTaskDesc">
+</mat-form-field><br>
+  <button mat-raised-button (click)="addTask()">Add your task</button>

@@ -1,0 +1,12 @@
+<div class="user-list__header">
+    Team Members
+</div>
+<div class="user__container">
+  <mat-card
+    class="user__card"
+    *ngFor="let user of team">
+    <mat-card-title>{{user.name}}</mat-card-title>
+    To do: {{user.activeTasks}}
+    Done: {{user.inactiveTasks}}
+  </mat-card>
+</div>

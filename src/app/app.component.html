@@ -1,6 +1,38 @@
-<div class="div" *ngFor="let task of taskList$ | async">
-  {{task.name}}<br>
-  {{task.desc}}<br>
-  <div *ngFor="let member of task.teamMembers">{{member}}</div>
-  {{task.active}}<br>
+<div class="task__header">
+  <div class="task__header--title">TaskMaster</div>
+  <div class="task__header--icons">
+    <mat-icon (click)="show = 'tasks'">done</mat-icon>
+    <mat-icon (click)="show = 'users'">person</mat-icon>
+    <mat-icon (click)="show = 'new'">add</mat-icon>
+  </div>
 </div>
+<div *ngIf="show === 'tasks'" class="tasks__container">
+  <mat-card
+    class="task__card"
+    *ngFor="let task of taskList$ | async">
+    <mat-card-title>{{task.name}}</mat-card-title> <br>
+    <mat-card-subtitle>{{task.active ? 'To Do' : 'Complete'}}</mat-card-subtitle>
+      <br>
+      {{task.desc}}<br><br>
+      <mat-chip-list>
+          <mat-chip color="primary" *ngFor="let member of task.teamMembers" >
+            {{getMemberById(member).name}}
+            <mat-icon
+              matChipRemove
+              color="warn"
+              (click)="removeMember(task,member)">cancel</mat-icon>
+          </mat-chip>
+      </mat-chip-list>
+    <button class="task__button" mat-raised-button (click)="deleteTask(task)">Remove Task</button>
+    <button class="task__button" mat-raised-button (click)="markTaskComplete(task)">Complete Task</button><br>
+    <mat-select class="task__addMember" placeholder="Add Team Member">
+        <mat-option *ngFor="let member of getAvailableTeam(task)" (click)="addMember(task,member.id)" >
+          {{member.name}}
+        </mat-option>
+    </mat-select>
+  </mat-card>
+</div>
+
+<app-user-list [team]="getTeam()" *ngIf="show==='users'"></app-user-list>
+<app-new-task (newTaskEvent)="addTask($event)"*ngIf="show === 'new'"></app-new-task>
+

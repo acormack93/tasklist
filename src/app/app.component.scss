@@ -1,74 +1,49 @@
-.photo__header {
-  height: 13vh;
-  min-height: 60px;
-  background-color: #00BCD4;
+.task__header {
+  height: 10vh;
+  padding-left: 20px;
+  background-color: #f06292;
+  color: white;
 }
-
-.photo__title {
-  margin-left: 20px;
+.task__header--title {
+  height: 10vh;
+  float: left;
+  line-height: 10vh;
   font-size: 30px;
-  padding-top: 10px;
-}
-.photo__search {
-  margin-left: 20px;
 }
 
-.photo__clearSearch {
-  margin-left: 20px;
-}
-.photo__container {
-  height: 80vh;
-  width: 100vw;
-  overflow: scroll;
-  text-align: center;
-}
-
-.photo__item {
-  height: 170px;
-  width: 85vw;
-  margin: 20px;
-  max-width: 500px;
-  min-width: 200px;
-  display: inline-block;
-  text-align: left;
-  transition: all .2s ease-in-out;
-}
-
-.photo__item:hover {
-  transform: scale(1.1);
-}
-
-.photo__item mat-card {
-  height: 150px;
-  cursor: pointer;
-}
-
-.photo__thumbnail {
-  height: 100px;
-  width: auto;
-}
-
-.photo__bottom {
-  height: 7vh;
-  min-height: 60px;
-  background-color: #00BCD4;
-}
-.photo__pageNumberSettings {
-  float: left;
-  margin-left: 20px;
-  margin-top: 10px;
-}
-.photo__pageNumber {
-  width: 30px;
-  line-height: 36px;
-  text-align: center;
-}
-.photo__pageNumberElement {
-  float: left;
-}
-.photo__pageSize {
+.task__header--icons {
   float: right;
-  width: 70px;
+  margin-top: calc(5vh - 12px);
   margin-right: 20px;
+}
+
+.tasks__container {
+  background-color: #e9e9e9;
+  display: inline-block;
+  width: 100vw;
+  height: 90vh;
+  overflow: scroll;
+}
+
+/deep/ .tasks__container mat-chip {
+  background-color: #f06292 !important
+}
+
+.task__card {
+  margin-bottom: 20px;
   margin-top: 20px;
+  display: inline-block;
+  width: 90vw;
+  margin-left: 3vw;
+  min-height: 260px;
+}
+
+.task__button {
+  margin-right: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.task__addMember {
+  margin: 10px;
 }

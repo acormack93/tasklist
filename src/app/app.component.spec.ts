@@ -9,8 +9,14 @@ import {
   MatInputModule,
   MatFormFieldModule,
   MatCardModule,
-  MatButtonModule
+  MatButtonModule,
+  MatChipsModule,
+  MatIconModule
 } from '@angular/material';
+
+import { DataServiceService } from './shared/data-service.service';
+import { UserListComponent } from './user-list/user-list.component';
+import { NewTaskComponent } from './new-task/new-task.component';
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -23,11 +29,16 @@ describe('AppComponent', () => {
         MatInputModule,
         MatFormFieldModule,
         MatCardModule,
-        MatButtonModule
+        MatButtonModule,
+        MatChipsModule,
+        MatIconModule
       ],
       declarations: [
-        AppComponent
+        AppComponent,
+        UserListComponent,
+        NewTaskComponent
       ],
+      providers: [DataServiceService]
     }).compileComponents();
   }));
   it('should create the app', async(() => {

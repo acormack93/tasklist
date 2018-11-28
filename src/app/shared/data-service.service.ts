@@ -51,12 +51,19 @@ export class DataServiceService {
       name: 'Task 2',
       desc: 'Task 1 Desc',
       teamMembers: [1, 2, 3, 4, 5, 6, 7, 8, 9],
-      active: true,
+      active: false,
     },
     {
       id: 3,
       name: 'Task 3',
       desc: 'Task 3 Desc',
+      teamMembers: [1],
+      active: true,
+    },
+    {
+      id: 4,
+      name: 'Task 4',
+      desc: 'Task 4 Desc',
       teamMembers: [1],
       active: true,
     },
@@ -71,7 +78,6 @@ export class DataServiceService {
       this.taskAdded(this.tasksToCreate[i]);
     }
     this.taskList = [...this.tasksToCreate];
-    console.log([this.taskList]);
   }
 
   generateTaskList(): Observable<Task[]> {
@@ -80,12 +86,8 @@ export class DataServiceService {
 
   taskAdded(newTask: Task) {
     this.teamMembers = this.teamMembers
-      // .filter(teamMember => newTask.teamMembers.indexOf(teamMember.id) > -1)
       .map(
         member => {
-          // if (newTask.active) {
-          //   this.checkMemberCapacity(member);
-          // }
           if (newTask.teamMembers.indexOf(member.id) > -1) {
             return {
               ...member,
@@ -99,15 +101,59 @@ export class DataServiceService {
       );
   }
 
-  checkMemberCapacity(teamMember: TeamMember) {
-    if (teamMember.inactiveTasks >= 4) {
-      // event emitter;
+  checkMemberCapacity(memberId: number) {
+    const numberTasks = this.taskList.filter(t => t.teamMembers.indexOf(memberId) !== -1).length;
+      if (numberTasks >= 5) {
+        return numberTasks;
+      }
+  }
+
+  deleteTask(taskToRemove: Task) {
+    this.taskList = this.taskList.filter(task => task.id !== taskToRemove.id);
+    this.generateTaskList();
+  }
+
+  addTask(task) {
+    this.taskList.push(task);
+    this.taskAdded(task);
+  }
+  addMember(task: Task, member) {
+    this.taskList.map(t => {
+      return {
+        ...t,
+        teamMembers: (t.id === task.id) ? t.teamMembers.push(member) : t.teamMembers
+      };
+    });
+  }
+
+  removeMember(task, member) {
+    this.taskList = this.taskList.map(t => {
+      return {
+        ...t,
+        teamMembers: (t.id === task.id) ? t.teamMembers.filter(m => m !== member) : t.teamMembers
+      };
+    });
+  }
+
+  getMemberById(id) {
+    const filteredTeam = this.teamMembers.filter(t => t.id === id);
+    if (filteredTeam.length) {
+      return filteredTeam[0];
     }
   }
 
-  // taskUpdated() {
+  markTaskComplete(task) {
+    this.taskList = this.taskList.map(t => {
+      return {
+        ...t,
+        active: (t.id === task.id) ? true : t.active
+      };
+    });
+  }
 
-  // }
-
-
+  getAvailableTeam(task: Task) {
+    return this.teamMembers.filter(
+      t => !task.teamMembers.includes(t.id)
+    );
+  }
 }
