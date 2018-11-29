@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/internal/BehaviorSubject';
 import { Observable, from } from 'rxjs';
+import { mergeMap } from 'rxjs/internal/operators/mergeMap';
 
 export interface TeamMember {
   id: number;
@@ -80,6 +81,34 @@ export class DataServiceService {
       );
   }
 
+  updateMemberCapcity() {
+    this.teamMembers = this.teamMembers
+      .map(
+        member => {
+            return {
+              ...member,
+              activeTasks: 0,
+              inactiveTasks: 0,
+            };
+        });
+    for (let i = 0; i < this.taskList.length; i ++) {
+      this.teamMembers = this.teamMembers
+      .map(
+        member => {
+          if (this.taskList[i].teamMembers.indexOf(member.id) > -1) {
+            return {
+              ...member,
+              activeTasks: (this.taskList[i].active) ? member.activeTasks + 1 : member.activeTasks,
+              inactiveTasks:  (!this.taskList[i].active) ? member.inactiveTasks + 1 : member.inactiveTasks,
+            };
+          } else {
+            return member;
+          }
+        }
+      );
+    }
+  }
+
   checkMemberCapacity(memberId: number) {
     const numberTasks = this.taskList.filter(t => t.teamMembers.indexOf(memberId) !== -1).length;
       if (numberTasks >= 5) {
@@ -90,6 +119,7 @@ export class DataServiceService {
   deleteTask(taskToRemove: Task) {
     this.taskList = this.taskList.filter(task => task.id !== taskToRemove.id);
     this.generateTaskList();
+    this.updateMemberCapcity();
   }
 
   addTask(task) {
@@ -103,6 +133,7 @@ export class DataServiceService {
         teamMembers: (t.id === task.id) ? t.teamMembers.push(member) : t.teamMembers
       };
     });
+    this.updateMemberCapcity();
   }
 
   removeMember(task, member) {
@@ -112,6 +143,7 @@ export class DataServiceService {
         teamMembers: (t.id === task.id) ? t.teamMembers.filter(m => m !== member) : t.teamMembers
       };
     });
+    this.updateMemberCapcity();
   }
 
   getMemberById(id) {
@@ -128,6 +160,7 @@ export class DataServiceService {
         active: (t.id === task.id) ? false : t.active
       };
     });
+    this.updateMemberCapcity();
   }
 
   getAvailableTeam(task: Task) {

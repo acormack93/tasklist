@@ -33,6 +33,6 @@
   </mat-card>
 </div>
 
-<app-user-list [team]="getTeam()" *ngIf="show==='users'"></app-user-list>
+<app-user-list [team]="team" *ngIf="show==='users'"></app-user-list>
 <app-new-task (newTaskEvent)="addTask($event)"*ngIf="show === 'new'"></app-new-task>
 

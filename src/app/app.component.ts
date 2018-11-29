@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   title = 'tasklist';
   show = 'tasks';
   taskList$: Observable<Task[]>;
+  team: TeamMember[];
 
   constructor(
     private dataService: DataServiceService
@@ -25,11 +26,13 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.dataService.initialSetup();
     this.taskList$ = this.dataService.generateTaskList();
+    this.team = this.dataService.teamMembers;
   }
 
   deleteTask(task) {
     this.dataService.deleteTask(task);
     this.taskList$ = this.dataService.generateTaskList();
+    this.team = this.dataService.teamMembers;
   }
 
   addTask(task) {
@@ -42,6 +45,7 @@ export class AppComponent implements OnInit {
     });
     this.taskList$ = this.dataService.generateTaskList();
     this.show = 'tasks';
+    this.team = this.dataService.teamMembers;
   }
 
   addMember(task: Task, member) {
@@ -50,11 +54,13 @@ export class AppComponent implements OnInit {
     if (this.dataService.checkMemberCapacity(member)) {
       window.alert(this.getMemberById(member).name + ' has ' + this.dataService.checkMemberCapacity(member) + ' tasks already!');
     }
+    this.team = this.dataService.teamMembers;
   }
 
   removeMember(task: Task, member) {
     this.dataService.removeMember(task, member);
     this.taskList$ = this.dataService.generateTaskList();
+    this.team = this.dataService.teamMembers;
   }
 
   getMemberById(id: number) {
@@ -63,10 +69,7 @@ export class AppComponent implements OnInit {
   markTaskComplete(task: Task) {
     this.dataService.markTaskComplete(task);
     this.taskList$ = this.dataService.generateTaskList();
-  }
-
-  getTeam() {
-    return this.dataService.teamMembers;
+    this.team = this.dataService.teamMembers;
   }
 
   getAvailableTeam(task: Task) {
