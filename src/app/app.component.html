@@ -7,6 +7,7 @@
   </div>
 </div>
 <div *ngIf="show === 'tasks'" class="tasks__container">
+  <div class="task__subTitle">Team Tasks</div>
   <mat-card
     class="task__card"
     *ngFor="let task of taskList$ | async">

@@ -9,3 +9,16 @@
   font-size: 28px;
   margin-left: 10px;
 }
+.user__card {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 90vw;
+  margin-left: 4vw;
+}
+
+@media only screen and (max-width: 600px) {
+  .user__card {
+    width: 85vw;
+    margin-left: 3vw;
+  }
+}

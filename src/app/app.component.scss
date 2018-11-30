@@ -4,6 +4,12 @@
   background-color: #f06292;
   color: white;
 }
+
+.task__subTitle {
+  font-size: 28px;
+  margin-left: 10px;
+}
+
 .task__header--title {
   height: 10vh;
   float: left;
@@ -22,7 +28,7 @@
   display: inline-block;
   width: 100vw;
   height: 90vh;
-  min-height: 800px;
+  // min-height: 800px;
   overflow: scroll;
 }
 
@@ -37,6 +43,14 @@
   width: 90vw;
   margin-left: 3vw;
   min-height: 260px;
+}
+
+
+@media only screen and (max-width: 600px) {
+  .task__card {
+    width: 85vw;
+    margin-left: 3vw;
+  }
 }
 
 .task__button {
